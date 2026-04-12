@@ -1,3 +1,32 @@
+terraform {
+  required_providers {
+    cloudflare = {
+      source = "cloudflare/cloudflare"
+      version = ">= 5.8.2"
+    }
+
+    vercel = {
+      source = "vercel/vercel"
+      version = "~> 0.3"
+    }
+  }
+}
+
+import {
+  to = vercel_project.love
+  id = "prj_pcbXyXnRa5rFJMi9Uo7MW8BEKml6"
+}
+
+import {
+  to = vercel_project_domain.neet_love
+  id = "prj_pcbXyXnRa5rFJMi9Uo7MW8BEKml6/neet.love"
+}
+
+import {
+  to = vercel_project_domain.www_neet_love
+  id = "prj_pcbXyXnRa5rFJMi9Uo7MW8BEKml6/www.neet.love"
+}
+
 import {
   to = cloudflare_dns_record.neet_love
   id = "59201401f72067735dde2e19182acb26/44ec9ea36234844b7d52432d270f57b2"
@@ -16,6 +45,27 @@ import {
 import {
   to = cloudflare_dns_record.neet_love_google
   id = "59201401f72067735dde2e19182acb26/d019900baaf1d4eb10eac6ecbfcb975e"
+}
+
+resource "vercel_project" "love" {
+  name      = "neet-love"
+  framework = "nextjs"
+  git_repository = {
+    type = "github"
+    repo = "neet/neet.love"
+  }
+}
+
+resource "vercel_project_domain" "neet_love" {
+  project_id = vercel_project.love.id
+  domain     = "neet.love"
+}
+
+resource "vercel_project_domain" "www_neet_love" {
+  project_id = vercel_project.love.id
+  domain     = "www.neet.love"
+  redirect   = "neet.love"
+  redirect_status_code = 308
 }
 
 resource "cloudflare_dns_record" "neet_love" {

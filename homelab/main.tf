@@ -1,3 +1,17 @@
+terraform {
+  required_providers {
+    cloudflare = {
+      source = "cloudflare/cloudflare"
+      version = ">= 5.8.2"
+    }
+
+    vercel = {
+      source = "vercel/vercel"
+      version = "~> 0.3"
+    }
+  }
+}
+
 import {
   to = cloudflare_dns_record.immich_neet_love
   id = "59201401f72067735dde2e19182acb26/e65dc1987c2ef0f17fc0620eb0c15241"

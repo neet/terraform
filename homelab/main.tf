@@ -23,12 +23,12 @@ import {
 }
 
 data "cloudflare_zero_trust_tunnel_cloudflared" "mitaka" {
-  account_id = "76d224284e40fc0bb85d8b8e39e6d652"
-  tunnel_id  = "6af47c59-63a6-4953-912e-f751f761a95e"
+  account_id = var.cloudflare_account_id 
+  tunnel_id  = var.cloudflare_tunnel_id
 }
 
 resource "cloudflare_dns_record" "immich_neet_love" {
-  zone_id = "59201401f72067735dde2e19182acb26"
+  zone_id = var.cloudflare_zone_id
   name    = "immich"
   content = "${data.cloudflare_zero_trust_tunnel_cloudflared.mitaka.id}.cfargotunnel.com"
   type    = "CNAME"
@@ -36,10 +36,9 @@ resource "cloudflare_dns_record" "immich_neet_love" {
   proxied = true 
 }
 
-
 resource "cloudflare_zero_trust_tunnel_cloudflared_config" "mitaka" {
-  tunnel_id = data.cloudflare_zero_trust_tunnel_cloudflared.mitaka.id
-  account_id = "76d224284e40fc0bb85d8b8e39e6d652"
+  tunnel_id  = data.cloudflare_zero_trust_tunnel_cloudflared.mitaka.id
+  account_id = var.cloudflare_account_id 
   config = {
     ingress = [
       {

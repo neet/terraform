@@ -10,6 +10,15 @@ terraform {
       version = "~> 0.3"
     }
   }
+
+  backend "remote" {
+    hostname = "app.terraform.io"
+    organization = "neetlab"
+
+    workspaces {
+      name = "www"
+    }
+  }
 }
 
 import {
@@ -57,12 +66,12 @@ resource "vercel_project" "www" {
 }
 
 resource "vercel_project_domain" "neet_love" {
-  project_id = vercel_project.love.id
+  project_id = vercel_project.www.id
   domain     = "neet.love"
 }
 
 resource "vercel_project_domain" "www_neet_love" {
-  project_id = vercel_project.love.id
+  project_id = vercel_project.www.id
   domain     = "www.neet.love"
   redirect   = "neet.love"
   redirect_status_code = 308
@@ -102,5 +111,20 @@ resource "cloudflare_dns_record" "txt_neet_love_google" {
   type    = "TXT"
   ttl     = 1
   proxied = false 
+}
+
+resource "vercel_project_environment_variable" "microcms_service_domain" {
+  project_id = vercel_project.www.id
+  key        = "SERVICE_DOMAIN"
+  value      = var.microcms_service_domain
+  target     = ["production", "preview", "development"]
+}
+
+resource "vercel_project_environment_variable" "microcms_api_key" {
+  project_id = vercel_project.www.id
+  key        = "API_KEY"
+  value      = var.microcms_api_key
+  target     = ["production", "preview"]
+  sensitive  = true
 }
 

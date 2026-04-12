@@ -10,6 +10,15 @@ terraform {
       version = "~> 0.3"
     }
   }
+
+  backend "remote" {
+    hostname = "app.terraform.io"
+    organization = "neetlab"
+
+    workspaces {
+      name = "homelab"
+    }
+  }
 }
 
 import {

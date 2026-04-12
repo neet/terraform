@@ -21,41 +21,6 @@ terraform {
   }
 }
 
-import {
-  to = vercel_project.www
-  id = "prj_pcbXyXnRa5rFJMi9Uo7MW8BEKml6"
-}
-
-import {
-  to = vercel_project_domain.neet_love
-  id = "prj_pcbXyXnRa5rFJMi9Uo7MW8BEKml6/neet.love"
-}
-
-import {
-  to = vercel_project_domain.www_neet_love
-  id = "prj_pcbXyXnRa5rFJMi9Uo7MW8BEKml6/www.neet.love"
-}
-
-import {
-  to = cloudflare_dns_record.a_neet_love
-  id = "59201401f72067735dde2e19182acb26/44ec9ea36234844b7d52432d270f57b2"
-}
-
-import {
-  to = cloudflare_dns_record.cname_www_neet_love
-  id = "59201401f72067735dde2e19182acb26/be4530f9757a3eb83143387bc3edddf9"
-}
-
-import {
-  to = cloudflare_dns_record.txt_neet_love_keybase
-  id = "59201401f72067735dde2e19182acb26/26c53bccd5457ff1dfe3ee00cee81afa"
-}
-
-import {
-  to = cloudflare_dns_record.txt_neet_love_google
-  id = "59201401f72067735dde2e19182acb26/d019900baaf1d4eb10eac6ecbfcb975e"
-}
-
 resource "vercel_project" "www" {
   name      = "www"
   framework = "nextjs"

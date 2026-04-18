@@ -35,6 +35,15 @@ resource "cloudflare_dns_record" "immich_neet_love" {
   proxied = true 
 }
 
+resource "cloudflare_dns_record" "elasticsearch_neet_love" {
+  zone_id = var.cloudflare_zone_id
+  name    = "elasticsearch"
+  content = "${data.cloudflare_zero_trust_tunnel_cloudflared.mitaka.id}.cfargotunnel.com"
+  type    = "CNAME"
+  ttl     = 1
+  proxied = true 
+}
+
 resource "cloudflare_zero_trust_tunnel_cloudflared_config" "mitaka" {
   tunnel_id  = data.cloudflare_zero_trust_tunnel_cloudflared.mitaka.id
   account_id = var.cloudflare_account_id 
@@ -44,6 +53,11 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "mitaka" {
         hostname       = "immich.neet.love"
         origin_request = {}
         service        = "http://localhost:2283"
+      },
+      {
+        hostname       = "elasticsearch.neet.love"
+        origin_request = {}
+        service        = "http://localhost:9200"
       },
       {
         service = "http_status:404"

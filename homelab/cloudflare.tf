@@ -38,12 +38,3 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "this" {
   }
 }
 
-moved {
-  from = cloudflare_zero_trust_tunnel_cloudflared.mitaka
-  to   = cloudflare_zero_trust_tunnel_cloudflared.this
-}
-
-moved {
-  from = cloudflare_zero_trust_tunnel_cloudflared_config.mitaka
-  to   = cloudflare_zero_trust_tunnel_cloudflared_config.this
-}

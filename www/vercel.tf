@@ -34,8 +34,3 @@ resource "vercel_project_environment_variable" "microcms_api_key" {
   sensitive  = true
 }
 
-moved {
-  from = vercel_project.www
-  to   = vercel_project.this
-}
-

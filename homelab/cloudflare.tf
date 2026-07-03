@@ -32,6 +32,11 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "this" {
         service        = "http://localhost:9200"
       },
       {
+        hostname       = "open-webui.neet.love"
+        origin_request = {}
+        service        = "http://compute-mitaka-02.local:3000"
+      },
+      {
         service = "http_status:404"
       }
     ]

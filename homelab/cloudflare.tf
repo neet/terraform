@@ -16,9 +16,9 @@ resource "cloudflare_dns_record" "elasticsearch_neet_love" {
   proxied = true 
 }
 
-resource "cloudflare_dns_record" "open_webui_neet_love" {
+resource "cloudflare_dns_record" "librechat_neet_love" {
   zone_id = var.cloudflare_zone_id
-  name    = "open-webui"
+  name    = "librechat"
   content = "${data.cloudflare_zero_trust_tunnel_cloudflared.this.id}.cfargotunnel.com"
   type    = "CNAME"
   ttl     = 1
@@ -41,9 +41,9 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "this" {
         service        = "http://localhost:9200"
       },
       {
-        hostname       = "open-webui.neet.love"
+        hostname       = "librechat.neet.love"
         origin_request = {}
-        service        = "http://192.168.11.3:3000"
+        service        = "http://192.168.11.3:3080"
       },
       {
         service = "http_status:404"
